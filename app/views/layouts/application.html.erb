@@ -3,13 +3,73 @@
 <head>
 	<%= yield :header %>
 
+	<meta name="viewport" content="width=device-width,initial-scale=1">
   	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   	<%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= yield %>
+
+<nav class="navbar navbar-default ">
+  <div class="container-fluid">
+  <!-- ヘッダー部分 ================ -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Bootstap</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_target">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+  <!-- 中央のナビゲーション部分 ================ -->
+    <div class="collapse navbar-collapse" id="nav_target">
+    <!--
+      <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Nav 1</a></li>
+          <li><a href="#">Nav 2</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nav3 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">link 1</a></li>
+              <li><a href="#">link 2</a></li>
+              <li class="divider"></li>
+              <li><a href="#">link3</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nav4 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">link 1</a></li>
+              <li><a href="#">link 2</a></li>
+              <li class="divider"></li>
+              <li><a href="#">link3</a></li>
+            </ul>
+          </li>
+      </ul>
+    -->
+  <!-- 右寄せになる部分 ================ -->
+      <ul class="nav navbar-nav navbar-right">
+        <!-- リンクのみ -->
+          <li><a href="#">Nav 5</a></li>
+        <!-- Nav6 ドロップダウン -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nav6 <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">link 1</a></li>
+              <li><a href="#">link 2</a></li>
+              <li class="divider"></li>
+              <li><a href="#">link3</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<%= yield :container %>
 
 </body>
 </html>
