@@ -15,7 +15,7 @@
   <div class="container-fluid">
   <!-- ヘッダー部分 ================ -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">Bootstap</a>
+      <a class="navbar-brand" href="/questions/index">Bootstap</a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav_target">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -52,7 +52,8 @@
       <ul class="nav navbar-nav navbar-right">
         <!-- リンクのみ -->
           <li><a href="#">Nav 5</a></li>
-        <!-- Nav6 ドロップダウン -->
+          <li><a href="">Nav6</a></li>
+        <!-- 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nav6 <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -62,14 +63,42 @@
               <li><a href="#">link3</a></li>
             </ul>
           </li>
+        -->
       </ul>
     </div>
   </div>
 </nav>
 
 
+<div class="container">
+	<%= yield %>
+</div>
 
-<%= yield :container %>
+
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">Place sticky footer content here.</p>
+  </div>
+</footer>
+<style type="text/css">
+	.footer {
+  		position: absolute;
+  		bottom: 0;
+  		width: 100%;
+  		height: 60px;
+  		background-color: #f5f5f5;
+	}
+
+	.container .text-muted {
+	  margin: 20px 0;
+	}
+	 
+	.footer > .container {
+	  padding-right: 15px;
+	  padding-left: 15px;
+	}
+</style>
+
 
 </body>
 </html>
