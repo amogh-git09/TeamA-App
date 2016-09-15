@@ -7,10 +7,6 @@
 }
 
 .container .text-muted {
-  margin: 20px 0;
+  	margin: 20px 0;
 }
  
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
