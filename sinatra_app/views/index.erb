@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<title>デバッグ</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script language="javascript" type="text/javascript">
+  function start() {
+    fetch('/start', {
+      method: 'get'
+    }).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      document.getElementById("content").innerHTML = JSON.stringify(json, null, "\t");
+    });
+  }
+  function end() {
+    fetch('/end', {
+      method: 'post',
+      body: JSON.stringify({
+        answers: [
+          {"id": 1, "score": 2},
+          {"id": 2, "score": 3},
+          {"id": 3, "score": 4},
+          {"id": 4, "score": 5},
+        ]
+      })
+    }).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      document.getElementById("content").innerHTML = JSON.stringify(json, null, "\t");
+    });
+  }
+</script>
+</head>
+<body>
+  <div>
+    <a href="javascript:void(0);" onclick="start();">start</a>
+    <a href="javascript:void(0);" onclick="end();">end</a>
+  </div>
+  <div>
+    response
+  </div>
+  <div>
+    <pre id="content"></pre>
+  </div>
+</body>
+</html>
