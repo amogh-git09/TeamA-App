@@ -1,3 +1,84 @@
+
+
+<div class="questions-field">
+  <% count = 1 %>
+  <% @sorted_questions.each do |x| %>
+    <div class="question<%= count %>">
+      <p><%= x.statement %></p>
+      <a class="answerBtn" href="/answer?question_id=<%= x.id %>&answer=1&csv_file_name=<%= @csv_file_name %>">はい</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x.id %>&answer=2&csv_file_name=<%= @csv_file_name %>">どちらかと言うとはい</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x.id %>&answer=3&csv_file_name=<%= @csv_file_name %>">どちらかと言うといいえ</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x.id %>&answer=4&csv_file_name=<%= @csv_file_name %>">いいえ</a>
+    </div>
+    <% count = count + 1 %>
+  <% end %>
+</div>
+
+<a href="">結果を見る</a>
+
+
+<script type="text/javascript">
+  $(function()
+  {
+    $('.answerBtn').click(function(event)
+    {
+      event.preventDefault();
+      var url = $(this).attr('href');
+
+      $.ajax(
+      {
+        type: "GET",
+        url: url
+      }).done( function(data)
+      {
+        //回答した質問をfadeOutして次の質問を表示する
+      });
+
+    });
+  });
+</script>
+
+<!--
+<script type="text/javascript">
+  $(function()
+  {
+    $.ajax(
+    {
+      type: "GET",
+      url: "/start",
+      dataType: "json"
+    }).done( function(data)
+    {
+      var array = data.questions;
+
+      $.each(array, function(i){
+        $('.question' + i).find('p.question-text').text( array[i].statement );
+        $('.question' + i).find('p.yes').attr('href', '/');
+        
+      });
+    });
+  });
+</script>
+
+
+
+<form action="" class="questions">
+  <% (1..30).each do |x| %>
+    <div class="question<%= x %>">
+      <p class="question-text"></p>
+
+      <a class="yes" href="">はい</a>
+      <a class="yes-little" href="">どちらかと言うと、はい</a>
+      <a class="no-little" href="">どちらかと言うと、いいえ</a>
+      <a class="no" href="">いいえ</a>
+    </div>
+  <% end %>
+</form>
+-->
+
+
+
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,3 +130,4 @@
   </div>
 </body>
 </html>
+-->
