@@ -1,51 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta charset="utf-8">
-<title>デバッグ</title>
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script language="javascript" type="text/javascript">
-  function start() {
-    fetch('/start', {
-      method: 'get'
-    }).then(function(response) {
-      return response.json();
-    }).then(function(json) {
-      document.getElementById("content").innerHTML = JSON.stringify(json, null, "\t");
+
+
+<div class="questions-field">
+  <% count = 1 %>
+  <% @sorted_questions.each do |x| %>
+    <div class="question<%= count %>">
+      <p><%= x[1] %></p>
+      <a class="answerBtn" href="/answer?question_id=<%= x[0] %>&answer=1&csv_file_name=<%= @csv_file_name %>">はい</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x[0] %>&answer=2&csv_file_name=<%= @csv_file_name %>">どちらかと言うとはい</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x[0] %>&answer=3&csv_file_name=<%= @csv_file_name %>">どちらかと言うといいえ</a>
+      <a class="answerBtn" href="/answer?question_id=<%= x[0] %>&answer=4&csv_file_name=<%= @csv_file_name %>">いいえ</a>
+    </div>
+    <% count = count + 1 %>
+  <% end %>
+</div>
+
+<a href="/result?csv_file_name=<%= @csv_file_name %>">結果を見る</a>
+
+
+<script type="text/javascript">
+  $(function()
+  {
+    $('.answerBtn').click(function(event)
+    {
+      event.preventDefault();
+      var url = $(this).attr('href');
+
+      $.ajax(
+      {
+        type: "GET",
+        url: url
+      }).done( function(data)
+      {
+        //回答した質問をfadeOutして次の質問を表示する
+      });
+
     });
-  }
-  function end() {
-    fetch('/end', {
-      method: 'post',
-      body: JSON.stringify({
-        answers: [
-          {"id": 1, "score": 2},
-          {"id": 2, "score": 3},
-          {"id": 3, "score": 4},
-          {"id": 4, "score": 5},
-        ]
-      })
-    }).then(function(response) {
-      return response.json();
-    }).then(function(json) {
-      document.getElementById("content").innerHTML = JSON.stringify(json, null, "\t");
-    });
-  }
+  });
 </script>
-</head>
-<body>
-  <div>
-    <a href="javascript:void(0);" onclick="start();">start</a>
-    <a href="javascript:void(0);" onclick="end();">end</a>
-  </div>
-  <div>
-    response
-  </div>
-  <div>
-    <pre id="content"></pre>
-  </div>
-</body>
-</html>
+
