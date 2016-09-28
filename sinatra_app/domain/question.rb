@@ -1,8 +1,9 @@
 module Domain
   class Question
-    def self.sorted(user_name, score, questions)
+    def self.sorted(darts_score, questions)
       # TODO: いい感じに並べ替える
-      questions
+      puts questions
+      return questions
     end
   end
 end

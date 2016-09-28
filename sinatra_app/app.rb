@@ -6,6 +6,7 @@ require 'active_support/all'
 
 require_relative 'domain/question.rb'
 require_relative 'domain/answer.rb'
+require_relative 'domain/member.rb'
 require_relative 'infra/question.rb'
 
 =begin
@@ -35,13 +36,7 @@ error 400 do
 end
 
 get '/home' do
-  @foo = 'foo'
   erb :home
-end
-
-get '/index' do
-  content_type 'text/html; charset=utf8'
-  erb :index
 end
 
 get '/answer' do
@@ -53,35 +48,36 @@ end
 
 get '/start' do
   # ユーザーの回答を記録するCSVファイルを作成
-  file_number = Dir.glob('./domain/answers/*.csv').count
+  file_number = Dir.glob('./tables/answers/*.csv').count
   csv_file_name = (file_number + 1).to_s + '.csv'
-  file_name = './domain/answers/' + csv_file_name
-  File.open(file_name,'w'){|file| file = nil}
+  file_name = './tables/answers/' + csv_file_name
+  file = File.open(file_name,'w') do |f|
+    f.puts('id, answer')
+  end
 
   content_type 'text/html; charset=utf8'
-  user_name = params['user_name']
-  score = params['score']
-  questions = Infra::Question.all_questions
-  @sorted_questions = Domain::Question.sorted(user_name, score, questions)
+  darts_score = params['darts_score']
+  questions = Infra::Question.read_questions_csv
+
+  @sorted_questions = Domain::Question.sorted(darts_score, questions)
   @csv_file_name = csv_file_name
+
   erb :index
   #{questions: sorted_questions.map { |q| q.to_h.slice(:id, :statement)}}.to_json
 end
 
-post '/end' do
-  begin
-    body = JSON.parse request.body.read
-  rescue JSON::ParserError => e
-    halt 400
-  end
-  answers = body
-  questions = Infra::Question.all_questions
-  member_id = Domain::Answer.nearest_member_id(questions, answers)
-  member = questions[0].members.find do |member|
-    member.id == member_id
-  end
-  {member: member}.to_json
+get '/result' do
+  csv_file_name = params['csv_file_name']
+  answers = Domain::Answer.answer_read(csv_file_name)
+  members = Domain::Member.member_read()
+  questions = Infra::Question.read_questions_csv
+  @nearest_member = Domain::Answer.nearest_member(questions, answers, members)
+  @nearest_questions = Domain::Answer.nearest_questions(questions, answers, @nearest_member[0])
+  
+  erb :result
 end
+
+
 
 get '/debug' do
   content_type 'text/html; charset=utf8'
