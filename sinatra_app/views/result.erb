@@ -1,8 +1,11 @@
 
 <%= @nearest_member[1] %>
+<img src="<%= @nearest_member[2] %>" width="200" height="280" alt="">
 
 <br>
 <p>マッチしていた質問</p>
 <% @nearest_questions.each do |question| %>
 	<%= question %> <br>
 <% end %>
+
+
