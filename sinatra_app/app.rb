@@ -56,10 +56,10 @@ get '/start' do
   end
 
   content_type 'text/html; charset=utf8'
-  darts_score = params['darts_score']
+  game_score = params['game_score']
   questions = Infra::Question.read_questions_csv
-
-  @sorted_questions = Domain::Question.sorted(darts_score, questions)
+  
+  @sorted_questions = Domain::Question.sorted(game_score, questions)
   @csv_file_name = csv_file_name
 
   erb :index
